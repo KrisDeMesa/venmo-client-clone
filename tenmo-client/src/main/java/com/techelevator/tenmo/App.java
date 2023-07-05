@@ -1,9 +1,13 @@
 package com.techelevator.tenmo;
 
+import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.UserService;
 
 public class App {
 
@@ -11,8 +15,11 @@ public class App {
 
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
+    private final AccountService accountService = new AccountService();
+    private final UserService userService = new UserService();
 
     private AuthenticatedUser currentUser;
+
 
     public static void main(String[] args) {
         App app = new App();
@@ -85,9 +92,10 @@ public class App {
     }
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
-		
-	}
+        User user = currentUser.getUser();
+        Account account = accountService.getAccountBalance(user.getId());
+        System.out.println(account);
+    }
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
@@ -100,9 +108,21 @@ public class App {
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
-		
-	}
+        // TODO Auto-generated method stub
+        User user = currentUser.getUser();
+        handleListUsers();
+//
+    }
+
+    public void handleListUsers() {
+        User[] users = userService.listUsers();
+        if (users != null) {
+            consoleService.printUsers(users);
+        } else {
+            consoleService.printErrorMessage();
+        }
+    }
+
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
