@@ -2,6 +2,7 @@ package com.techelevator.tenmo.services;
 
 
 import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
@@ -385,6 +386,16 @@ public class ConsoleService {
         for (User user : users) {
             System.out.println(user.getId() + ": " + user.getUsername());
         }
+    }
+
+    public void printTransfers(Transfer[] transfers) {
+        System.out.println("--------------------------------------------");
+        System.out.println("Transfers");
+        System.out.println("--------------------------------------------");
+        for (Transfer transfer : transfers) {
+            System.out.println(transfer.getTransferId() + ": " + transfer.getAccountFrom() + transfer.getAccountTo() + transfer.getAmount());
+        }
+
     }
 
 
