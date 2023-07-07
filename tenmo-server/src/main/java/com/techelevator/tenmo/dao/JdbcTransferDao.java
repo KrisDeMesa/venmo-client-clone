@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.User;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -21,9 +22,8 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public Transfer getTransferById(int transferId) {
-        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount FROM transfer " +
+        String sql = "SELECT * FROM transfer " +
                 "WHERE transfer_id = ?";
-
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
         if (results.next()) {
             return mapRowToTransfer(results);
@@ -150,6 +150,21 @@ public class JdbcTransferDao implements TransferDao {
         }
 
     }
+
+    public Transfer getUserById(int accountId) {
+        String sql = "SELECT * FROM transfer t\n" +
+                "JOIN account a ON t.account_from = a.account_id\n" +
+                "JOIN tenmo_user tu ON a.user_id = tu.user_id\n" +
+                "WHERE a.user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
+        if (results.next()) {
+            return mapRowToTransfer(results);
+        } else {
+            return null;
+        }
+    }
+
+
 
     private Transfer mapRowToTransfer(SqlRowSet rs) {
         Transfer transfer = new Transfer();

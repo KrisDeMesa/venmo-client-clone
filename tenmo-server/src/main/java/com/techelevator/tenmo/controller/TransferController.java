@@ -24,8 +24,8 @@ public class TransferController {
         return transferService.getAllTransfers();
     }
     @GetMapping("/{id}")
-    public Transfer getTransferById(@PathVariable int id) {
-        Transfer transfer = transferDao.getTransferById(id);
+    public Transfer getUserById(@PathVariable int id) {
+        Transfer transfer = transferService.getUserId(id);
         return transfer;
     }
 

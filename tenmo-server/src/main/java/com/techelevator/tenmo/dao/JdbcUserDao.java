@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.dao;
 
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -38,9 +39,12 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User getUserById(int userId) {
-        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+    public User getUserById(int accountId) {
+        String sql = "SELECT * FROM transfer t\n" +
+                "JOIN account a ON t.account_from = a.account_id\n" +
+                "JOIN tenmo_user tu ON a.user_id = tu.user_id\n" +
+                "WHERE a.user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
         if (results.next()) {
             return mapRowToUser(results);
         } else {
@@ -95,6 +99,21 @@ public class JdbcUserDao implements UserDao {
 
         return true;
     }
+
+    public User getTransferAccountName(int accountId) {
+        String sql = "SELECT * FROM transfer t\n" +
+                "JOIN account a ON t.account_from = a.account_id\n" +
+                "JOIN tenmo_user tu ON a.user_id = tu.user_id\n" +
+                "WHERE a.account_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            return null;
+        }
+    }
+
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

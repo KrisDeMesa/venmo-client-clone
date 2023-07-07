@@ -3,6 +3,7 @@ package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import org.springframework.http.*;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +26,15 @@ public class UserService {
         }
         return users;
 
+    }
+
+    public User getUserById(int userId) {
+        try {
+            User user = restTemplate.getForObject(API_BASE_URL + userId, User.class);
+            return user;
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            throw new RuntimeException("Error getting user details: " + userId, ex);
+        }
     }
 
     private HttpEntity<Account> makeAccountEntity(Account account) {

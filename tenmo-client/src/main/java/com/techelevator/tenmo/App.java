@@ -100,6 +100,7 @@ public class App {
 
 	private void viewTransferHistory() {
         Transfer[] transfers = transferService.viewTransfers();
+        User[] users = userService.listUsers();
         if (transfers != null) {
             consoleService.printTransfers(transfers);
         } else {
@@ -119,24 +120,29 @@ public class App {
         int recievingAddress = -1;
         int user = currentUser.getUser().getId();
         while (recievingAddress != 0) {
+            System.out.println("--------------------------------------------");
             recievingAddress = consoleService.promptForMenuSelection("Enter ID of user you are sending to (0 to cancel): ");
             amountTosend = consoleService.promptForInt("Enter amount: ");
-
             if (recievingAddress != 0) {
-
                 if (recievingAddress != user) {
-                    System.out.println("can send");
                     if (amountTosend <= account.getBalance()) {
                         if (amountTosend > 0) {
                             if (account.getUserId() == user) {
+                                user = account.getAccountId();
+                                transfer.setTransferTypeId(2);
                                 transfer.setAmount(amountTosend);
                                 transfer.setAccountTo(recievingAddress);
                                 transfer.setAccountFrom(user);
                                 transfer.setTransferStatusId(1);
+                                transferService.createTransfer(transfer);
                                 System.out.println("Sending!");
                                 break;
                             }
+                        } else {
+                            System.out.println("Insufficient funds.");
                         }
+                    } else {
+                        System.out.println("Insufficient funds.");
                     }
                 } else {
                     System.out.println("Error!");

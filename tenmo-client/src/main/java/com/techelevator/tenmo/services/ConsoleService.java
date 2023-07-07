@@ -408,11 +408,11 @@ public class ConsoleService {
     public void printTransfers(Transfer[] transfers) {
         System.out.println("--------------------------------------------");
         System.out.println("Transfers");
+        System.out.println("ID            From/To                Amount");
         System.out.println("--------------------------------------------");
         for (Transfer transfer : transfers) {
-            System.out.println(transfer.getTransferId() + ": " + transfer.getAccountFrom() + transfer.getAccountTo() + transfer.getAmount());
+            System.out.println(transfer.getTransferId() + ": " + "        " + "                " + transfer.getAmount());
         }
-
     }
 
 
