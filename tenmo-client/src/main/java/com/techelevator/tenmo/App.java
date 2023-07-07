@@ -134,6 +134,7 @@ public class App {
                                 transfer.setAccountFrom(user);
                                 transfer.setTransferStatusId(1);
                                 System.out.println("Sending!");
+                                break;
                             }
                         }
                     }
