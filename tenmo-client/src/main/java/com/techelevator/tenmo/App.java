@@ -19,6 +19,8 @@ public class App {
     private String choice;
 
 
+
+
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -111,7 +113,35 @@ public class App {
 	}
 
 	private void sendBucks() {
+        Transfer transfer = new Transfer();
+        Account account = accountService.getAccountId(currentUser.getUser().getId());
+        double amountTosend = 0;
+        int recievingAddress = -1;
+        int user = currentUser.getUser().getId();
+        while (recievingAddress != 0) {
+            recievingAddress = consoleService.promptForMenuSelection("Enter ID of user you are sending to (0 to cancel): ");
+            amountTosend = consoleService.promptForInt("Enter amount: ");
 
+            if (recievingAddress != 0) {
+
+                if (recievingAddress != user) {
+                    System.out.println("can send");
+                    if (amountTosend <= account.getBalance()) {
+                        if (amountTosend > 0) {
+                            if (account.getUserId() == user) {
+                                transfer.setAmount(amountTosend);
+                                transfer.setAccountTo(recievingAddress);
+                                transfer.setAccountFrom(user);
+                                transfer.setTransferStatusId(1);
+                                System.out.println("Sending!");
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Error!");
+                }
+            }
+        }
     }
 
     public void handleListUsers() {

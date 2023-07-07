@@ -37,7 +37,7 @@ public class TransferService {
 
     public Transfer createTransfer(Transfer newTransfer) {
         try {
-            Transfer transfer = restTemplate.getForObject(API_BASE_URL + newTransfer, Transfer.class);
+            Transfer transfer = restTemplate.postForObject(API_BASE_URL, makeTransferEntity(newTransfer), Transfer.class);
             return transfer;
         } catch (RestClientResponseException | ResourceAccessException ex) {
             throw new RuntimeException("Error creating transfer.", ex);

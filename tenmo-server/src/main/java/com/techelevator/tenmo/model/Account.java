@@ -7,14 +7,17 @@ public class Account {
     private double balance;
     private int userId;
 
+
+
     public Account() {
 
     }
 
-    public Account(int accountId, int userId, int balance) {
+    public Account(int accountId, int userId, double balance) {
         this.accountId = accountId;
         this.userId = userId;
         this.balance = balance;
+
     }
 
     public int getAccountId() {

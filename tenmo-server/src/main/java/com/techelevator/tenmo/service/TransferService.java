@@ -28,11 +28,13 @@ public class TransferService {
 
     public Transfer createTransfer(Transfer newTransfer) {
         Transfer transfer = transferDao.createTransfer(newTransfer);
-        transfer.setTransferId(newTransfer.getTransferId());
-        transfer.setTransferStatusId(newTransfer.getTransferStatusId());
-        transfer.setAccountTo(newTransfer.getAccountTo());
-        transfer.setAccountFrom(newTransfer.getAccountFrom());
-        transfer.setAmount(newTransfer.getAmount());
+
+//        if (transfer.getAccountTo() == transfer.getAccountFrom()) {
+//            System.out.println("Can't send to same account!");
+//        } else if (transfer.getAmount() <= 0) {
+//            System.out.println("Insufficient funds!");
+//        } else if (transfer.getAccountFrom() == accountDao.getAccountById())
+//
         return transfer;
     }
     public List<User> getUserList() {
@@ -44,8 +46,8 @@ public class TransferService {
         return account;
     }
 
-    public Account getAccountBalance(int balance) {
-        Account accountBalance = accountDao.getBalance(balance);
+    public Account getAccountBalance(int accountId) {
+        Account accountBalance = accountDao.getBalance(accountId);
         return accountBalance;
     }
 

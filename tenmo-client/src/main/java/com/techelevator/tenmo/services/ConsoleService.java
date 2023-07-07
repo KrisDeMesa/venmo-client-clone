@@ -244,7 +244,17 @@ public class ConsoleService {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a number.");
+                System.out.println("Enter ID of user you are sending to (0 to cancel): ");
+            }
+        }
+    }
+    public double promptForDouble(String prompt) {
+        System.out.print(prompt);
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Enter amount: ");
             }
         }
     }
@@ -258,6 +268,11 @@ public class ConsoleService {
                 System.out.println("Please enter a decimal number.");
             }
         }
+    }
+
+    public int inputPrompt(Scanner scanner) {
+        int choice = scanner.nextInt();
+        return choice;
     }
 
     public void pause() {
@@ -399,6 +414,7 @@ public class ConsoleService {
         }
 
     }
+
 
 
 

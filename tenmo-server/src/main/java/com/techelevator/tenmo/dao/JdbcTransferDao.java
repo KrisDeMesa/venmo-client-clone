@@ -35,12 +35,12 @@ public class JdbcTransferDao implements TransferDao {
     public Transfer createTransfer(Transfer transfer) {
         Transfer newTransfer = null;
         String sql = "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)\n" +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?) RETURNING transfer_id";
+                "VALUES (?, ?, ?, ?, ?) RETURNING transfer_id";
         try {
             Integer newTransferId = jdbcTemplate.queryForObject(sql, Integer.class,
                     transfer.getTransferTypeId(), transfer.getTransferStatusId(), transfer.getAccountFrom(),
                     transfer.getAccountTo(), transfer.getAmount());
-            newTransfer = getTransferById(newTransferId);
+            transfer.setTransferId(newTransferId);
         } catch (CannotGetJdbcConnectionException e) {
             System.out.println("Connection Error.");
         } catch (BadSqlGrammarException e) {
@@ -48,7 +48,7 @@ public class JdbcTransferDao implements TransferDao {
         } catch (DataIntegrityViolationException e) {
             System.out.println("Date Integrity Violation.");
         }
-        return newTransfer;
+        return transfer;
     }
 
     @Override

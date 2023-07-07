@@ -33,6 +33,16 @@ public class AccountService {
         return account;
 
     }
+    public Account getAccountId(int id) {
+        Account account = null;
+        try {
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + id, HttpMethod.GET, makeAuthEntity(), Account.class);
+            account = response.getBody();
+        } catch (RestClientResponseException ex) {
+            System.out.println("Error!");
+        }
+        return account;
+    }
 
 
 

@@ -1,13 +1,21 @@
 package com.techelevator.tenmo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Objects;
 
 public class Transfer {
+
     private int transferId;
+
     private int transferTypeId;
+
     private int transferStatusId;
+
     private int accountFrom;
+
     private int accountTo;
+
     private double amount;
 
 

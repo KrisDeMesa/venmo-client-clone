@@ -6,6 +6,8 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping(path = "/account")
 public class AccountController {
@@ -22,16 +24,21 @@ public class AccountController {
         Account accountBalance = accountDao.getBalance(id);
         return accountBalance;
     }
-
+    // ID is User Id
     @GetMapping("/{id}")
     public Account getAccountById(@PathVariable int id) {
         Account account = accountDao.getAccountById(id);
         return account;
     }
+//    @GetMapping("/{id}/")
+//    public Account getUserById(@PathVariable int id) {
+//        Account account = accountDao.getUserId(id);
+//            return account;
+//    }
 
-
-
-
-
+//    @GetMapping("/{whoami}")
+//    public String getCurrentUser(Principal curUser) {
+//        return curUser.getName();
+//    }
 
 }

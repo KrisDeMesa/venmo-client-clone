@@ -9,6 +9,30 @@ public class Transfer {
     private int accountFrom;
     private int accountTo;
 
+    public void setTransferId(int transferId) {
+        this.transferId = transferId;
+    }
+
+    public void setTransferTypeId(int transferTypeId) {
+        this.transferTypeId = transferTypeId;
+    }
+
+    public void setTransferStatusId(int transferStatusId) {
+        this.transferStatusId = transferStatusId;
+    }
+
+    public void setAccountFrom(int accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public void setAccountTo(int accountTo) {
+        this.accountTo = accountTo;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public int getTransferId() {
         return transferId;
     }
