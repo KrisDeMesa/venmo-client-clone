@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.model;
 
+import java.util.Objects;
+
 public class Account {
     private int accountId;
     private double balance;
@@ -37,5 +39,27 @@ public class Account {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return accountId == account.accountId && Double.compare(account.balance, balance) == 0 && userId == account.userId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountId, balance, userId);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", balance=" + balance +
+                ", userId=" + userId +
+                '}';
     }
 }

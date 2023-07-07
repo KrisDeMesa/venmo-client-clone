@@ -3,6 +3,7 @@ package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.http.*;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,11 +20,28 @@ public class TransferService {
         try {
             ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL, HttpMethod.GET, makeAuthEntity(), Transfer[].class);
             transfers = response.getBody();
-        }  catch (RestClientResponseException ex) {
-            System.out.println("Error!");
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            throw new RuntimeException("Error getting transfer details", ex);
         }
         return transfers;
+    }
 
+    public Transfer getTransfersById(int transferId) {
+        try {
+            Transfer transfer = restTemplate.getForObject(API_BASE_URL + transferId, Transfer.class);
+            return transfer;
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            throw new RuntimeException("Error getting transfer details for transfer ID: " + transferId, ex);
+        }
+    }
+
+    public Transfer createTransfer(Transfer newTransfer) {
+        try {
+            Transfer transfer = restTemplate.getForObject(API_BASE_URL + newTransfer, Transfer.class);
+            return transfer;
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            throw new RuntimeException("Error creating transfer.", ex);
+        }
     }
 
     private HttpEntity<Transfer> makeTransferEntity(Transfer transfer) {

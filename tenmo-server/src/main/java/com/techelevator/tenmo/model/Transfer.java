@@ -10,40 +10,17 @@ public class Transfer {
     private int accountTo;
     private double amount;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transfer transfer = (Transfer) o;
-        return transferId == transfer.transferId && transferTypeId == transfer.transferTypeId && transferStatusId == transfer.transferStatusId && accountFrom == transfer.accountFrom && accountTo == transfer.accountTo && Double.compare(transfer.amount, amount) == 0;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(transferId, transferTypeId, transferStatusId, accountFrom, accountTo, amount);
-    }
-
-    @Override
-    public String toString() {
-        return "Transfer{" +
-                "transferId=" + transferId +
-                ", transferTypeId=" + transferTypeId +
-                ", transferStatusId=" + transferStatusId +
-                ", accountFrom=" + accountFrom +
-                ", accountTo=" + accountTo +
-                ", amount=" + amount +
-                '}';
-    }
-public Transfer() {
+    public Transfer() {
 
 }
     public Transfer (int transferId, int transferTypeId, int transferStatusId, int accountFrom, int accountTo, double amount) {
-        this.transferId=transferId;
-        this.transferTypeId=transferTypeId;
-        this.transferStatusId=transferStatusId;
-        this.accountFrom=accountFrom;
-        this.accountTo=accountTo;
-        this.amount=amount;
+        this.transferId = transferId;
+        this.transferTypeId = transferTypeId;
+        this.transferStatusId = transferStatusId;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.amount = amount;
     }
     public int getTransferId() {
         return transferId;
@@ -91,5 +68,32 @@ public Transfer() {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transfer transfer = (Transfer) o;
+        return transferId == transfer.transferId && transferTypeId == transfer.transferTypeId
+                && transferStatusId == transfer.transferStatusId && accountFrom == transfer.accountFrom
+                && accountTo == transfer.accountTo && Double.compare(transfer.amount, amount) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transferId, transferTypeId, transferStatusId, accountFrom, accountTo, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "transferId=" + transferId +
+                ", transferTypeId=" + transferTypeId +
+                ", transferStatusId=" + transferStatusId +
+                ", accountFrom=" + accountFrom +
+                ", accountTo=" + accountTo +
+                ", amount=" + amount +
+                '}';
     }
 }

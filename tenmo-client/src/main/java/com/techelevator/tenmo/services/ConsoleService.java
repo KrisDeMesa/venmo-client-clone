@@ -382,9 +382,11 @@ public class ConsoleService {
     public void printUsers(User[] users) {
         System.out.println("--------------------------------------------");
         System.out.println("Users");
+        System.out.println("ID                Name                      ");
+        System.out.println("--------------------------------------------");
         System.out.println("--------------------------------------------");
         for (User user : users) {
-            System.out.println(user.getId() + ": " + user.getUsername());
+            System.out.println(user.getId() + ":             " + user.getUsername());
         }
     }
 

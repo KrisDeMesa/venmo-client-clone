@@ -3,6 +3,8 @@ package com.techelevator.tenmo;
 import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.*;
 
+import java.util.Scanner;
+
 public class App {
 
     private static final String API_BASE_URL = "http://localhost:8080/";
@@ -13,6 +15,8 @@ public class App {
     private final UserService userService = new UserService();
     private final TransferService transferService = new TransferService();
     private AuthenticatedUser currentUser;
+    private Scanner userInput;
+    private String choice;
 
 
     public static void main(String[] args) {
@@ -73,6 +77,7 @@ public class App {
             } else if (menuSelection == 3) {
                 viewPendingRequests();
             } else if (menuSelection == 4) {
+                handleListUsers();
                 sendBucks();
             } else if (menuSelection == 5) {
                 requestBucks();
@@ -88,7 +93,7 @@ public class App {
 	private void viewCurrentBalance() {
         User user = currentUser.getUser();
         Account account = accountService.getAccountBalance(user.getId());
-        System.out.println(account);
+        System.out.println("Your current account balance is: $" + account.getBalance());
     }
 
 	private void viewTransferHistory() {
@@ -106,10 +111,7 @@ public class App {
 	}
 
 	private void sendBucks() {
-        // TODO Auto-generated method stub
-        User user = currentUser.getUser();
-        handleListUsers();
-//
+
     }
 
     public void handleListUsers() {

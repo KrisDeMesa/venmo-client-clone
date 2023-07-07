@@ -11,6 +11,8 @@ public interface TransferDao {
 
     Transfer getTransferById(int transferId);
 
+    Transfer createTransfer(Transfer transfer);
+
     Transfer getTransferTypeId(int transferTypeId);
 
 
