@@ -411,11 +411,7 @@ public class ConsoleService {
         System.out.println("ID            From/To                Amount");
         System.out.println("--------------------------------------------");
         for (Transfer transfer : transfers) {
-            System.out.println(transfer.getTransferId() + ": " + "        " + "                " + transfer.getAmount());
+            System.out.println( ": " + "        " + "                " + transfer.getAmount());
         }
     }
-
-
-
-
 }

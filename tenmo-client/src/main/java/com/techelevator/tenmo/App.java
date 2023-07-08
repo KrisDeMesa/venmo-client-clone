@@ -94,7 +94,7 @@ public class App {
 
 	private void viewCurrentBalance() {
         User user = currentUser.getUser();
-        Account account = accountService.getAccountBalance(user.getId());
+        Account account = accountService.getAccountBalance(currentUser.getUser().getId());
         System.out.println("Your current account balance is: $" + account.getBalance());
     }
 
@@ -128,7 +128,6 @@ public class App {
                     if (amountTosend <= account.getBalance()) {
                         if (amountTosend > 0) {
                             if (account.getUserId() == user) {
-                                user = account.getAccountId();
                                 transfer.setTransferTypeId(2);
                                 transfer.setAmount(amountTosend);
                                 transfer.setAccountTo(recievingAddress);

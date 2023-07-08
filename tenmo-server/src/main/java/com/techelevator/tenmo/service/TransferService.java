@@ -55,4 +55,13 @@ public class TransferService {
     public Transfer getTransferById(int transferId) {
         return transferDao.getTransferById(transferId);
     }
+
+    public void updateBalances(Account accountFrom, Account accountTo) {
+        accountDao.updateFromBalance(accountFrom);
+        accountDao.updateToBalance(accountTo);
+    }
+
+//    public User getUserAccountName(int userId) {
+//        User user =
+//    }
 }

@@ -9,6 +9,17 @@ public class Transfer {
     private int transferStatusId;
     private int accountFrom;
     private int accountTo;
+    private double amount;
+
+
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public int getTransferId() {
+        return transferId;
+    }
 
     public void setTransferId(int transferId) {
         this.transferId = transferId;
@@ -34,9 +45,7 @@ public class Transfer {
         this.amount = amount;
     }
 
-    public int getTransferId() {
-        return transferId;
-    }
+
 
     public int getTransferTypeId() {
         return transferTypeId;
@@ -78,10 +87,4 @@ public class Transfer {
                 ", amount=" + amount +
                 '}';
     }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    private double amount;
 }

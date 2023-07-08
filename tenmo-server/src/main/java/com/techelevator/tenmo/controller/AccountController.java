@@ -4,9 +4,11 @@ import com.techelevator.tenmo.dao.AccountDao;
 import com.techelevator.tenmo.dao.JdbcAccountDao;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.service.TransferService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/account")
@@ -14,6 +16,7 @@ public class AccountController {
 
     private final String API_URL = "http://localhost:8080/";
     private AccountDao accountDao;
+    private TransferService transferService;
 
     public AccountController(AccountDao accountDao) {
         this.accountDao = accountDao;
@@ -29,6 +32,16 @@ public class AccountController {
     public Account getAccountById(@PathVariable int id) {
         Account account = accountDao.getAccountById(id);
         return account;
+    }
+
+    @PutMapping("/{id}/")
+    public void updateAccountBalance() {
+//        transferService.updateBalances();
+    }
+
+    @GetMapping
+    public List<Account> listAccounts() {
+        return accountDao.getAccounts();
     }
 //    @GetMapping("/{id}/")
 //    public Account getUserById(@PathVariable int id) {

@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -99,7 +98,7 @@ public class JdbcUserDao implements UserDao {
 
         return true;
     }
-
+    @Override
     public User getTransferAccountName(int accountId) {
         String sql = "SELECT * FROM transfer t\n" +
                 "JOIN account a ON t.account_from = a.account_id\n" +
