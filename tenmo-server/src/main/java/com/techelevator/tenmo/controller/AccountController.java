@@ -35,8 +35,8 @@ public class AccountController {
     }
 
     @PutMapping("/{id}/")
-    public void updateAccountBalance() {
-//        transferService.updateBalances();
+    public void updateAccountBalance(@RequestBody Account accountToUpdate, @PathVariable int id) {
+       transferService.updateBalances(accountToUpdate, id);
     }
 
     @GetMapping

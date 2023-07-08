@@ -41,19 +41,19 @@ public class JdbcAccountDao implements AccountDao{
     }
 
     @Override
-    public Account updateToBalance(Account accountTo) {
+    public void updateToBalance(Account accountTo) {
         Account updatedAccountBalance = null;
         String updateToBalance = "SELECT * FROM account a\n" +
                 "JOIN transfer t ON account_to = account_id;\n" +
-                "UPDATE account SET balance = balance + (SELECT amount FROM transfer WHERE account_to = 2001)\n" +
-                "WHERE account_id = 2001;";
+                "UPDATE account SET balance = balance + (SELECT amount FROM transfer WHERE account_to = ?)\n" +
+                "WHERE account_id = ?;";
         try {
             Integer results = jdbcTemplate.update(updateToBalance, accountTo.getAccountId(), accountTo.getAccountId());
             if (results == 0) {
                 System.out.println("Now rows were updatead");
             }
             updatedAccountBalance = getAccountById(accountTo.getAccountId());
-            return updatedAccountBalance;
+
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
         } catch (BadSqlGrammarException e) {
@@ -64,7 +64,7 @@ public class JdbcAccountDao implements AccountDao{
     }
 
     @Override
-    public Account updateFromBalance(Account accountFrom) {
+    public void updateFromBalance(Account accountFrom) {
         Account updatedAccountBalance = null;
         String updateFromBalance = "SELECT * FROM account a\n" +
                 "JOIN transfer t ON account_from = account_id;\n" +
@@ -73,11 +73,11 @@ public class JdbcAccountDao implements AccountDao{
         try {
             Integer results = jdbcTemplate.update(updateFromBalance, accountFrom.getAccountId(), accountFrom.getAccountId());
             if (results == 0) {
-                System.out.println("Now rows were updatead");
+                System.out.println("Now rows were updated");
             }
             updatedAccountBalance = getAccountById(accountFrom.getAccountId());
 
-            return updatedAccountBalance;
+
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
         } catch (BadSqlGrammarException e) {

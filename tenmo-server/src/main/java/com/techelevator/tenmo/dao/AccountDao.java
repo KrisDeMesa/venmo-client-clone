@@ -14,9 +14,9 @@ public interface AccountDao {
 
     Account updateToBalance(Account accountTo, Account accountFrom);
 
-    Account updateToBalance(Account accountTo);
+    void updateToBalance(Account accountTo);
 
-    Account updateFromBalance(Account accountFrom);
+   void updateFromBalance(Account accountFrom);
 
     List<Account> getAccounts();
 }
