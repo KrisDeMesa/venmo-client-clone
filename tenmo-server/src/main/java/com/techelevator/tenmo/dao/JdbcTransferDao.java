@@ -36,8 +36,8 @@ public class JdbcTransferDao implements TransferDao {
     public boolean updateFromBalance(Transfer transfer) {
         try {
             String updateBalance = "UPDATE account SET balance = balance - (SELECT amount FROM transfer WHERE transfer_id = ?) " +
-                    "WHERE account_id = ?";
-            int result = jdbcTemplate.update(updateBalance, transfer.getTransferId(), transfer.getAccountTo());
+                    "WHERE account_id = (SELECT account_id FROM account WHERE user_id = ?)";
+            int result = jdbcTemplate.update(updateBalance, transfer.getTransferId(), transfer.getAccountFrom());
             if (result == 0) {
                 throw new RuntimeException("Data access error!");
             }
@@ -55,7 +55,7 @@ public class JdbcTransferDao implements TransferDao {
     public boolean updateToBalance(Transfer transfer) {
         try {
             String updateBalance = "UPDATE account SET balance = balance + (SELECT amount FROM transfer WHERE transfer_id = ?) " +
-                    "WHERE account_id = ?";
+                    "WHERE account_id = (SELECT account_id FROM account WHERE user_id = ?)";
             int result = jdbcTemplate.update(updateBalance, transfer.getTransferId(), transfer.getAccountTo());
             if (result == 0) {
                 throw new RuntimeException("Data access error!");
