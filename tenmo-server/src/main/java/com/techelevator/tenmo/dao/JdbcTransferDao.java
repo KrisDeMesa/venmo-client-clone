@@ -1,8 +1,7 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
-import com.techelevator.tenmo.model.User;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -30,6 +29,44 @@ public class JdbcTransferDao implements TransferDao {
             return mapRowToTransfer(results);
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public boolean updateFromBalance(Transfer transfer) {
+        try {
+            String updateBalance = "UPDATE account SET balance = balance - (SELECT amount FROM transfer WHERE transfer_id = ?) " +
+                    "WHERE account_id = ?";
+            int result = jdbcTemplate.update(updateBalance, transfer.getTransferId(), transfer.getAccountTo());
+            if (result == 0) {
+                throw new RuntimeException("Data access error!");
+            }
+            return true;
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL code error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public boolean updateToBalance(Transfer transfer) {
+        try {
+            String updateBalance = "UPDATE account SET balance = balance + (SELECT amount FROM transfer WHERE transfer_id = ?) " +
+                    "WHERE account_id = ?";
+            int result = jdbcTemplate.update(updateBalance, transfer.getTransferId(), transfer.getAccountTo());
+            if (result == 0) {
+                throw new RuntimeException("Data access error!");
+            }
+            return true;
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL code error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
     }
     @Override

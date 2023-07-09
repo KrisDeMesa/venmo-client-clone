@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
@@ -42,6 +41,7 @@ public class TransferService implements TransferManager {
         } catch (RestClientResponseException | ResourceAccessException ex) {
             throw new RuntimeException("Error creating transfer.", ex);
         }
+
     }
 
 

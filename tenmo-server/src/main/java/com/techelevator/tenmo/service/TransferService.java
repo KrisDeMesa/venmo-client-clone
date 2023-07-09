@@ -56,14 +56,4 @@ public class TransferService {
         return transferDao.getTransferById(transferId);
     }
 
-    public void updateBalances(Account accountFrom, int id) {
-        if (id != accountFrom.getAccountId()) {
-            System.out.println("Cannot update.");
-            accountDao.updateFromBalance(accountFrom);
-        }
-    }
-
-//    public User getUserAccountName(int userId) {
-//        User user =
-//    }
 }

@@ -1,6 +1,8 @@
 package com.techelevator.tenmo.controller;
 
+import com.techelevator.tenmo.dao.AccountDao;
 import com.techelevator.tenmo.dao.TransferDao;
+import com.techelevator.tenmo.dao.UserDao;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.service.TransferService;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,15 @@ import java.util.List;
 public class TransferController {
     private TransferDao transferDao;
     private TransferService transferService;
+    private AccountDao accountDao;
+    private UserDao userDao;
 
 
-    public TransferController(TransferService transferService) {
+    public TransferController(TransferService transferService, AccountDao accountDao, UserDao userDao, TransferDao transferDao) {
         this.transferService = transferService;
+        this.accountDao = accountDao;
+        this.userDao = userDao;
+        this.transferDao = transferDao;
     }
     @GetMapping
     public List<Transfer> listTransfers() {
@@ -30,8 +37,10 @@ public class TransferController {
     }
 
     @PostMapping
-    public Transfer createTransfer(@RequestBody Transfer newTransfer) {
-        return transferService.createTransfer(newTransfer);
+    public void createTransfer(@RequestBody Transfer newTransfer) {
+        transferService.createTransfer(newTransfer);
+        transferDao.updateToBalance(newTransfer);
+        transferDao.updateFromBalance(newTransfer);
     }
 
 

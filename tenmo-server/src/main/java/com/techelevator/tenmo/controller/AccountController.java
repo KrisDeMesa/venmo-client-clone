@@ -34,11 +34,6 @@ public class AccountController {
         return account;
     }
 
-    @PutMapping("/{id}/")
-    public void updateAccountBalance(@RequestBody Account accountToUpdate, @PathVariable int id) {
-       transferService.updateBalances(accountToUpdate, id);
-    }
-
     @GetMapping
     public List<Account> listAccounts() {
         return accountDao.getAccounts();
